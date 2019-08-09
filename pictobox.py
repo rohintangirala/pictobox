@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import argparse
 import os
 import sys
@@ -84,6 +86,9 @@ def main():
     arrange_images = False
 
     args = get_args()
+
+    if len(sys.argv) == 1:
+        exit(0)
 
     if args.arrange:
         yes_no = prompt_yes_no()

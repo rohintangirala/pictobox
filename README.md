@@ -14,14 +14,18 @@ pip install exif
 ```
 Run the script:
 ```sh
-python3 pictobox.py
+./pictobox.py
 ```
+
+*NOTE: If the above doesn't work, either run* `chmod +x pictobox.py` *first or just run* `python3 pictobox.py` *instead. You may have to check your installation of Python 3.*
 
 ### Optional arguments:
 - `--dir` or `-d`: Provide a path to another directory with images on which to run the script
 - `--arrange` or `-a`: Create a directory with images arranged into subdirectories by make and model
 - `--sorted` or `-s`: Specify a custom name for the directory with sorted images (Default: `sorted-images`)
 - `--output` or `-o`: Specify the name of a file to which to write JSON output
+
+Both the directory with sorted images and the output JSON file are created in the target directory of the script.
 
 ### Output:
 The script outputs a formatted JSON object with the following format:
@@ -46,5 +50,5 @@ This output can be written to a file if desired (see optional arguments above).
 
 ### Example:
 ```sh
-python3 pictobox.py --arrange --dir ~/Pictures > output.json
+./pictobox.py --arrange --dir ~/Pictures --sorted output-images --output output.json
 ```
