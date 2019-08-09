@@ -6,9 +6,17 @@ import shutil
 
 from exif import Image
 
+def get_args():
+    parser = argparse.ArgumentParser(description='Sort images by device make/model')
+    parser.add_argument('--dir', '-d')
+    parser.add_argument('--arrange', '-a', action='store_true')
+    
+    return parser.parse_args()
+
 def is_valid_extension(ext):
     if ext == '.jpg' or ext == '.jpeg':
         return True
+    
     return False
 
 def path_format(main_dir, sub):
@@ -66,11 +74,6 @@ def create_sorted_dirs(target_dir, sorted_image_names):
         shutil.copyfile(src_file, dest_file)
 
 def main():
-    parser = argparse.ArgumentParser(description='Sort images by device make/model')
-    parser.add_argument('--dir', '-d')
-    parser.add_argument('--arrange', '-a', action='store_true')
-    args = parser.parse_args()
-
     target_dir = ''
 
     arrange_images = False
@@ -99,7 +102,6 @@ def main():
 
     if args.arrange:
         create_sorted_dirs(target_dir, sorted_image_names)
-
 
 if __name__ == '__main__':
     main()
