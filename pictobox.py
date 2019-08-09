@@ -8,8 +8,10 @@ from exif import Image
 
 def get_args():
     parser = argparse.ArgumentParser(description='Sort images by device make/model')
-    parser.add_argument('--dir', '-d')
-    parser.add_argument('--arrange', '-a', action='store_true')
+    parser.add_argument('--dir', '-d', help='path to target directory with images')
+    parser.add_argument('--arrange', '-a', action='store_true', help='create a new directory with sorted images')
+    parser.add_argument('--sorted', '-s', help='specify a custom name for the directory with sorted images (default = "sorted-images")')
+    parser.add_argument('--output', '-o', help='specify the name of an output file to which to write JSON output')
     
     return parser.parse_args()
 
@@ -20,7 +22,7 @@ def is_valid_extension(ext):
     return False
 
 def path_format(main_dir, sub):
-    return '{}/{}'.format(main_dir, sub)
+    return '{}/{}'.format(main_dir, sub).replace('//', '/')
 
 def get_sorted_image_names(target_dir):
     makes_models = {}
@@ -57,8 +59,8 @@ def prompt_yes_no():
 
     return False
 
-def create_sorted_dirs(target_dir, sorted_image_names):
-    sorted_dir = path_format(target_dir, 'sorted-images')
+def create_sorted_dirs(target_dir, sorted_image_names, sorted_dir_name):
+    sorted_dir = path_format(target_dir, sorted_dir_name)
     if os.path.exists(sorted_dir):
         shutil.rmtree(sorted_dir)
     os.mkdir(sorted_dir)
@@ -72,11 +74,16 @@ def create_sorted_dirs(target_dir, sorted_image_names):
         src_file = path_format(target_dir, image[0])
         dest_file = path_format(dest_dir, image[0])
         shutil.copyfile(src_file, dest_file)
+    
+    print('\nDirectory "{}" with sorted images was created'.format(sorted_dir))
 
 def main():
     target_dir = ''
-
+    output_file = ''
+    sorted_dir_name = 'sorted-images'
     arrange_images = False
+
+    args = get_args()
 
     if args.arrange:
         yes_no = prompt_yes_no()
@@ -96,12 +103,30 @@ def main():
     else:
         target_dir = os.getcwd()
 
+    if args.sorted is not None:
+        sorted_dir_name = args.sorted
+
+    if args.output is not None:
+        output_file = args.output
+
     sorted_image_names = get_sorted_image_names(target_dir)
    
-    print(get_formatted_json(sorted_image_names))
+    formatted_json = get_formatted_json(sorted_image_names)
+
+    if output_file != '':
+        output_file_path = path_format(target_dir, output_file)
+
+        with open(output_file_path, 'w') as write_file:
+            write_file.write(formatted_json)
+        
+        write_file.close()
+
+        print('\nOutput was written to file "{}"'.format(output_file_path))
+    else:
+        print('\n' + formatted_json)
 
     if args.arrange:
-        create_sorted_dirs(target_dir, sorted_image_names)
+        create_sorted_dirs(target_dir, sorted_image_names, sorted_dir_name)
 
 if __name__ == '__main__':
     main()

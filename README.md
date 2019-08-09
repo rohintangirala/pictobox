@@ -19,7 +19,9 @@ python3 pictobox.py
 
 ### Optional arguments:
 - `--dir` or `-d`: Provide a path to another directory with images on which to run the script
-- `--arrange` or `-a`: Create a `sorted-images` directory with images arranged into subdirectories by make and model
+- `--arrange` or `-a`: Create a directory with images arranged into subdirectories by make and model
+- `--sorted` or `-s`: Specify a custom name for the directory with sorted images (Default: `sorted-images`)
+- `--output` or `-o`: Specify the name of a file to which to write JSON output
 
 ### Output:
 The script outputs a formatted JSON object with the following format:
@@ -40,7 +42,7 @@ The script outputs a formatted JSON object with the following format:
 }
 ```
 
-This output can be redirected to a file if desired.
+This output can be written to a file if desired (see optional arguments above).
 
 ### Example:
 ```sh
