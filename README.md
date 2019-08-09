@@ -1,6 +1,10 @@
-# pictobox
+# Pictobox
 
 A Python script that sorts JPEG images in a directory by device make and model info found in EXIF metadata.
+
+Have a large directory full of pictures? Don't know whether you took them on your phone or your camera? If you answered yes to either of these questions, Pictobox could help you out.
+
+Ideas for new features and pull requests are always welcome.
 
 ## How to use:
 
