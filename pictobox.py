@@ -87,9 +87,6 @@ def main():
 
     args = get_args()
 
-    if len(sys.argv) == 1:
-        exit(0)
-
     if args.arrange:
         yes_no = prompt_yes_no()
         
@@ -128,7 +125,8 @@ def main():
 
         print('\nOutput was written to file "{}"'.format(output_file_path))
     else:
-        print('\n' + formatted_json)
+        if len(sorted_image_names) > 0:
+            print('\n' + formatted_json)
 
     if args.arrange:
         create_sorted_dirs(target_dir, sorted_image_names, sorted_dir_name)
