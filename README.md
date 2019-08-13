@@ -8,16 +8,16 @@ Ideas for new features and pull requests are always welcome.
 
 ## How to use:
 
-Install the `exif` module:
+Run setup script:
 ```sh
-pip install exif
+./setup.sh
 ```
-Run the script:
+Run the pictobox script:
 ```sh
 ./pictobox.py
 ```
 
-*NOTE: If the above doesn't work, either run* `chmod +x pictobox.py` *first or just run* `python3 pictobox.py` *instead. You may have to check your installation of Python 3.*
+*NOTE: If the setup script doesn't work, try making it executable first:* `chmod +x setup.sh`
 
 ### Optional arguments:
 - `--dir` or `-d`: Provide a path to another directory with images on which to run the script
